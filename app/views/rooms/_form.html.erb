@@ -11,12 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="w-full mx-auto rounded-lg bg-white shadow p-5 text-gray-800" style="max-width: 400px">
+    <div class="w-full flex mb-4">
+        <div class="overflow-hidden rounded-full w-12 h-12">
+          <img src="https://images.unsplash.com/photo-1585128719562-74b7009c5776" alt="">
+        </div>
+        <div class="flex-grow pl-3 flex items-center">
+          <%= form.label :name, class: "hidden" %>
+          <%= form.text_field :name, class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"%>
+          <%#= link_to room.name, room, class: "font-bold text-md hover:bg-white hover:text-gray-700" %>
+        </div>
+    </div>
+    <div class="w-full mb-4 flex flex-row-reverse space-x-2 justify-start">
+      <%= form.submit class: "ml-2 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <%= button_to 'Cancel', room, class: "cursor-pointer text-white inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </div>
   </div>
 <% end %>
