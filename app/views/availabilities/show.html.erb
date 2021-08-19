@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Starts at:</strong>
+  <%= @availability.starts_at %>
+</p>
+
+<p>
+  <strong>Ends at:</strong>
+  <%= @availability.ends_at %>
+</p>
+
+<p>
+  <strong>Week day:</strong>
+  <%= @availability.week_day %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @availability.room_id %>
+</p>
+
+<%= link_to 'Edit', edit_availability_path(@availability) %> |
+<%= link_to 'Back', availabilities_path %>
