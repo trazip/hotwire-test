@@ -1,0 +1,31 @@
+<div class="w-full rounded-lg bg-white shadow p-5 text-gray-800" style="max-width: 400px">
+  <div class="w-full flex mb-4">
+      <div class="overflow-hidden rounded-full w-12 h-12">
+        <img src="https://images.unsplash.com/photo-1585128719562-74b7009c5776" alt="">
+      </div>
+      <div class="flex-grow pl-3">
+        <h6 class="font-bold text-md"><%= room.name %></h6>
+      </div>
+      <div class="text-right">
+        <div class="relative inline-block text-left" data-controller="dropdown">
+          <div data-action="click->dropdown#toggle click@window->dropdown#hide" role="button" data-dropdown-target="button" tabindex="0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+
+          <div data-dropdown-target="menu" class="hidden origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+            <div class="py-1" role="none">
+              <%= link_to 'Edit', edit_room_path(room), class: "text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" %>
+              <%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" %>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="w-full mb-4">
+
+    <p class="text-sm">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam obcaecati laudantium recusandae, debitis eum voluptatem ad, illo voluptatibus temporibus odio provident. Laboriosam accusamus necessitatibus tenetur praesentium ullam voluptates nulla reprehenderit? 🤣</p>
+  </div>
+</div>
