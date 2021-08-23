@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(room) do %>
-  <div class="w-full mx-auto rounded-lg bg-white shadow p-5 text-gray-800" style="max-width: 400px">
+  <div class="w-full rounded-lg bg-white shadow p-5 text-gray-800 h-96 overflow-hidden overflow-y-scroll" data-controller="booking">
     <div class="w-full flex mb-4">
         <div class="overflow-hidden rounded-full w-12 h-12">
           <img src="https://images.unsplash.com/photo-1585128719562-74b7009c5776" alt="">
@@ -7,7 +7,7 @@
         <div class="flex-grow pl-3 flex items-center">
           <%= link_to room.name, edit_room_path(room), class: "cursor-text font-bold text-md hover:bg-white hover:text-gray-700" %>
         </div>
-        <div class="text-right">
+        <div class="text-right flex items-center">
           <div class="relative inline-block text-left" data-controller="dropdown">
             <div data-action="click->dropdown#toggle click@window->dropdown#hide" role="button" data-dropdown-target="button" tabindex="0">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,13 +25,30 @@
           </div>
         </div>
     </div>
-    <div class="w-full mb-4">
-      <% availabilities = room.availabilities_from('2021-08-20', 30) %>
-      <% if availabilities %>
-        <div class="grid grid-cols-5 grid-rows-3 gap-2">
-          <% availabilities.each do |slot| %>
-            <div class="w-16 h-8 font-semibold cursor-pointer hover:bg-blue-600 hover:text-white rounded-md shadow-md bg-blue-200 text-blue-600 flex justify-center items-center"><%= slot %></div>
-          <% end %>
+
+    <div class="w-full mb-4 flex">
+      <% availabilities = room.availabilities_from('2021-08-20', @slot_duration, @week_duration) %>
+      <% if availabilities.any? %>
+        <div class="w-12 flex justify-center items-start">
+          Prev
+        </div>
+        <% availabilities.each do |day, array| %>
+          <div class="day flex-grow mx-1 select-none">
+            <div class="header items-center flex flex-col item-center mb-2">
+              <div class="text-xs font-medium text-gray-600 leading-4"><%= Date::DAYNAMES[day.to_date.wday] %></div>
+              <div class="flex items-center justify-center w-12 h-12 rounded-full text-2xl transition duration-150 ease-in-out focus:outline-none font-medium text-gray-700"><%= day.to_date.day %></div>
+            </div>
+            <% array.each do |slot| %>
+              <% if slot != '-' %>
+                <%= link_to slot.to_s(:time), appointments_path(appointment: { room_id: room.id, starts_at: slot, ends_at: slot + @slot_duration.minutes }), class: 'w-30 h-10 my-2 font-semibold cursor-pointer hover:bg-blue-600 hover:text-white rounded-md shadow-md bg-blue-200 text-blue-600 flex justify-center items-center', data: { turbo: false, method: :post, confirm: 'Are you sure ?' }  %>
+              <% else %>
+                <div class="w-30 h-10 my-2 font-semibold rounded-md bg-gray-200 text-gray-600 flex justify-center items-center"> - </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="w-12 flex justify-center items-start">
+          Next
         </div>
       <% else %>
       <p>No availabilities for this day</p>
@@ -39,3 +56,5 @@
     </div>
   </div>
 <% end %>
+
+            <%#= link_to slot, { controller: 'appointments', action: 'create', user_id: current_user.id, room_id: room.id, method: 'post' }, class:   %>

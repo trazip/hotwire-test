@@ -22,11 +22,13 @@ class AppointmentsController < ApplicationController
   # POST /appointments or /appointments.json
   def create
     @appointment = Appointment.new(appointment_params)
+    @appointment.user_id = current_user.id
 
     respond_to do |format|
       if @appointment.save
-        format.html { redirect_to @appointment, notice: "Appointment was successfully created." }
+        format.html { redirect_to rooms_path, notice: "Appointment was successfully created." }
         format.json { render :show, status: :created, location: @appointment }
+        #format.turbo_stream { render :json, status: :created, notice: "Appointment was successfully created."}
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @appointment.errors, status: :unprocessable_entity }

@@ -4,6 +4,8 @@ class RoomsController < ApplicationController
   # GET /rooms or /rooms.json
   def index
     @rooms = Room.all.order(:id)
+    @slot_duration = 30
+    @week_duration = 5
   end
 
   # GET /rooms/1 or /rooms/1.json
