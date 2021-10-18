@@ -26,6 +26,7 @@ gem 'redis', '~> 4.0'
 
 gem 'active_record_union', '~> 1.3'
 gem 'devise'
+gem 'ice_cube'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

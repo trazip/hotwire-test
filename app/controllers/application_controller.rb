@@ -2,20 +2,26 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  around_action :user_time_zone
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  around_action :set_time_zone, if: :user_signed_in?
 
-  def configure_permitted_parameters
-    # For additional fields in app/views/devise/registrations/new.html.erb
-    devise_parameter_sanitizer.permit(:sign_up, keys: :time_zone)
-
-    # For additional in app/views/devise/registrations/edit.html.erb
-    devise_parameter_sanitizer.permit(:account_update, keys: :time_zone)
+  def set_time_zone
+    Time.zone = current_user.time_zone
   end
 
+  def browser_time_zone
+    browser_tz = ActiveSupport::TimeZone.find_tzinfo(cookies[:timezone])
+    ActiveSupport::TimeZone.all.find{ |zone| zone.tzinfo == browser_tz } || Time.zone
+  rescue TZInfo::UnknownTimezone, TZInfo::InvalidTimezoneIdentifier
+    Time.zone
+  end
+
+  helper_method :browser_time_zone
 
   private
 
-  def user_time_zone(&block)
-    Time.use_zone(current_user.time_zone, &block)
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:time_zone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:time_zone])
   end
 end

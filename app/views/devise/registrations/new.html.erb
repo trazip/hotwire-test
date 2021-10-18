@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :time_zone %><br />
-    <%= f.time_zone_select :time_zone %>
+    <%= f.time_zone_select :time_zone, nil, default: browser_time_zone.name %>
   </div>
 
   <div class="actions">
